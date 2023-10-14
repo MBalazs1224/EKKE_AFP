@@ -50,18 +50,32 @@ function SetEnglishname() {
 
 }
 
+function SetBackTimer(){
+  seconds -= 3;
+  if (seconds < 3) seconds = 0;
+  ShowTime();
+}
 
 function CheckEquality() {
   if(hungarian_input.value == hungarian_word){
     score++;
     SetEnglishname();
+    SetBackTimer();
   }
   else{
-    user_feedback.style.color = "red"
-    user_feedback.innerText = "You failed :( the correct answer was " + hungarian_word + "! Your score is: " + score + " points!";
-    submitButton.disabled = true;
-    hungarian_input.value = ""
+
+    End();
   }
+}
+
+
+function End(){
+  user_feedback.style.color = "red"
+  user_feedback.innerText = "You failed :( the correct answer was " + hungarian_word + "! Your score is: " + score + " points!";
+  submitButton.disabled = true;
+  hungarian_input.value = "";
+  clearInterval(timerInterval);
+  timerInterval = null;
 }
 
 function getRandomInt() {
@@ -73,3 +87,26 @@ function getRandomInt() {
   } while (valami < 0);
   return valami
 }
+ let timerInterval;
+ let seconds = 0;
+ let minutes = 0;
+ const timerDisplay = document.getElementById('timer');
+ timerInterval = setInterval(updateTimer, 1000)
+ function updateTimer() {
+     seconds++;
+     if (seconds === 60) {
+         seconds = 0;
+         minutes++;
+     }
+
+     if (minutes == 1) {
+        End();
+     }
+     ShowTime();
+ }
+
+
+ function ShowTime(){
+  timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+ }
