@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Falling Objects Game</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    canvas {
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const paddle = {
+      width: 80,
+      height: 10,
+      x: canvas.width / 2 - 40,
+      y: canvas.height - 20,
+    };
+
+    fallingObjects = [];
+    const objectSize = 20;
+    const objectSpeed = 2;
+    const generateObjectInterval = 60; // Generate a new object every 60 frames
+    let frameCount = 0;
+    let score = 0;
+    let gameOver = false;
+
+    function drawPaddle() {
+      ctx.fillStyle = 'blue';
+      ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+    }
+
+    function drawObject(object) {
+      ctx.beginPath();
+      ctx.arc(object.x, object.y, objectSize / 2, 0, Math.PI * 2);
+      ctx.fillStyle = object.color;
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function movePaddle(e) {
+      const offsetX = canvas.offsetLeft;
+      paddle.x = e.clientX - offsetX - paddle.width / 2;
+    }
+
+    function createRandomObject() {
+      const colors = ['red', 'green', 'blue', 'orange', 'purple'];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      const randomX = Math.random() * (canvas.width - objectSize) + objectSize / 2;
+      const object = {
+        x: randomX,
+        y: 0,
+        color: randomColor,
+      };
+      fallingObjects.push(object);
+    }
+
+    function updateObjects() {
+      for (let i = fallingObjects.length - 1; i >= 0; i--) {
+        fallingObjects[i].y += objectSpeed;
+
+        // Check for collision with the paddle
+        if (
+          fallingObjects[i].y + objectSize / 2 > paddle.y &&
+          fallingObjects[i].x > paddle.x &&
+          fallingObjects[i].x < paddle.x + paddle.width
+        ) {
+          fallingObjects.splice(i, 1);
+          score++;
+        }
+
+        // Check if the object has reached the bottom
+        if (fallingObjects[i].y - objectSize / 2 > canvas.height) {
+          fallingObjects.splice(i, 1);
+          if (!gameOver) {
+            // If the game is not already over, set the game state to "game over"
+            gameOver = true;
+            alert('Game Over! Your score: ' + score);
+            Restart();
+          }
+        }
+      }
+    }
+
+    function Restart() {
+        fallingObjects = [];
+        frameCount = 0;
+        score = 0;
+        gameOver = false;
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawPaddle();
+
+      for (const object of fallingObjects) {
+        drawObject(object);
+      }
+
+      // Display the score
+      ctx.fillStyle = 'black';
+      ctx.font = '20px Arial';
+      ctx.fillText('Score: ' + score, 10, 30);
+    }
+
+    function gameLoop() {
+      if (!gameOver) {
+        frameCount++;
+
+        if (frameCount % generateObjectInterval === 0) {
+          createRandomObject();
+        }
+
+        updateObjects();
+        draw();
+        requestAnimationFrame(gameLoop);
+      }
+    }
+
+    document.addEventListener('mousemove', movePaddle);
+
+    gameLoop();
+  </script>
+</body>
+</html>

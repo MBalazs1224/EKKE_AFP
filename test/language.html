@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language game</title>
+    <script defer src="index.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <section>
+        <div style="text-align: center; display: flex; justify-content: center; width: 100%; align-items: center; margin-top: 1rem;">
+            <button id="back">Back to home page</button>
+            
+            <h1 style="font-size: 2rem;">Language Game</h1>
+        </div>
+        
+        <div style="display: flex; align-items: center; margin: auto; width: 80%; justify-content: center; flex-direction: column; vertical-align: center;  position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);">
+            <p id="english-word"></p>
+            <br>
+            <input type="text" id="hungarian-word" />
+            <input type="button" id="submit_button" value="Submit" />
+            <p id="timer">00:00</p>
+            <p id="user-feedback"></p>
+        </div>
+        <div class="air air"></div>
+        <div class="air air2"></div>
+        <div class="air air3"></div>
+        <div class="air air4"></div>
+    </section>
+    <script>
+        document.getElementById("back").addEventListener("mousedown",() =>{
+            window.location.href = "index.html";
+        })
+    </script>
+</body>
+</html>

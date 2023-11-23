@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Website</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+    }
+    button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    canvas {
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <button id="fallingObjectsBtn">Play Falling Objects Game</button>
+  <button id="ticTacToeBtn">Play Tic-Tac-Toe</button>
+
+  <div id="gameContainer">
+    <!-- Game canvas will be inserted here -->
+  </div>
+
+  <script>
+    const gameContainer = document.getElementById('gameContainer');
+    const fallingObjectsBtn = document.getElementById('fallingObjectsBtn');
+    const ticTacToeBtn = document.getElementById('ticTacToeBtn');
+
+    fallingObjectsBtn.addEventListener('click', () => startFallingObjectsGame());
+    ticTacToeBtn.addEventListener('click', () => startTicTacToeGame());
+
+    function startFallingObjectsGame() {
+      clearGameContainer();
+      const canvas = document.createElement('canvas');
+      canvas.width = 400;
+      canvas.height = 400;
+      gameContainer.appendChild(canvas);
+
+      const ctx = canvas.getContext('2d');
+      // Add the falling objects game code here or use the previous example
+      // ...
+
+      // Example: Display a message for the chosen game
+      ctx.fillStyle = 'black';
+      ctx.font = '20px Arial';
+      ctx.fillText('Falling Objects Game', 10, 30);
+    }
+
+    function startTicTacToeGame() {
+      clearGameContainer();
+      const messageElement = document.createElement('p');
+      messageElement.textContent = 'Tic-Tac-Toe Game';
+      gameContainer.appendChild(messageElement);
+
+      // Add the Tic-Tac-Toe game code here or use your implementation
+      // ...
+
+      // Example: Display a message for the chosen game
+      messageElement.textContent = 'Tic-Tac-Toe Game';
+    }
+
+    function clearGameContainer() {
+      gameContainer.innerHTML = '';
+    }
+  </script>
+</body>
+</html>

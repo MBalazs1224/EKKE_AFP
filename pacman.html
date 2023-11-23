@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pac-Man Game</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    canvas {
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const pacMan = {
+      x: 50,
+      y: 50,
+      radius: 20,
+      mouthOpen: true,
+      angle: 0.2,
+    };
+
+    function drawPacMan() {
+      ctx.beginPath();
+      ctx.arc(pacMan.x, pacMan.y, pacMan.radius, pacMan.angle, -pacMan.angle);
+      ctx.lineTo(pacMan.x, pacMan.y);
+      ctx.fillStyle = 'yellow';
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function clearCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function update() {
+      // Update Pac-Man's mouth animation
+      pacMan.angle += 0.03;
+      if (pacMan.angle > 1.8 || pacMan.angle < 0.2) {
+        pacMan.mouthOpen = !pacMan.mouthOpen;
+      }
+    }
+
+    function draw() {
+      clearCanvas();
+      drawPacMan();
+    }
+
+    function gameLoop() {
+      update();
+      draw();
+      requestAnimationFrame(gameLoop);
+    }
+
+    gameLoop();
+  </script>
+</body>
+</html>
