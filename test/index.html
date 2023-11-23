@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 1em;
+      text-align: center;
+    }
+
+    #game-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 20px;
+    }
+
+    .game {
+      width: 300px;
+      margin: 20px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      background-color: #fff;
+      text-align: center;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1em;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Flash Game Portal</h1>
+  </header>
+
+  <div id="game-list">
+    <div class="game" onclick="openGame('game1.html')">
+      <h2>Game 1</h2>
+      <p>Description of Game 1</p>
+    </div>
+    <div class="game" onclick="openGame('game2.html')">
+      <h2>Game 2</h2>
+      <p>Description of Game 2</p>
+    </div>
+    <div class="game" onclick="openGame('game3.html')">
+      <h2>Game 3</h2>
+      <p>Description of Game 3</p>
+    </div>
+    <div class="game" onclick="openGame('game4.html')">
+      <h2>Game 4</h2>
+      <p>Description of Game 4</p>
+    </div>
+    <div class="game" onclick="openGame('game5.html')">
+      <h2>Game 5</h2>
+      <p>Description of Game 5</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2023 Game Portal</p>
+  </footer>
+
+  <script>
+    function openGame(url) {
+      // You can redirect to the selected game page or load the game using other techniques.
+      window.location.href = url;
+    }
+  </script>
+
+</body>
+</html>
