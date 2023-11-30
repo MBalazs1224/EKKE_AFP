@@ -11,6 +11,8 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      height: 100%;
+      width: 100%;
     }
     canvas {
       border: 1px solid #ddd;
@@ -18,12 +20,15 @@
   </style>
 </head>
 <body>
+  <button id="back">Back to home page</button>
   <canvas id="gameCanvas" width="400" height="400"></canvas>
 
   <script>
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
-
+    document.getElementById("back").addEventListener("mousedown",() =>{
+      window.location.href = "index.html";
+    })
     const boxSize = 20;
     let snake = [{ x: 10, y: 10 }];
     let food = generateFood();
@@ -96,8 +101,8 @@
     }
 
     function gameLoop() {
-      draw();
       update();
+      draw();
       setTimeout(gameLoop, 100); // Adjust the delay (in milliseconds) to slow down or speed up the game
     }
 
